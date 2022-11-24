@@ -1,0 +1,64 @@
+$lightGreen: #b9e7e7;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  .container {
+    // LOGIN & REGISTER
+    .auth {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: $lightGreen;
+      padding: 0 30px;
+      h1 {
+        font-style: 20px;
+        color: teal;
+        line-height: 32px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 20px 40px;
+        max-width: 350px;
+        width: 100%;
+        gap: 20px;
+        background-color: #ffffff;
+
+        input {
+          padding: 8px 10px;
+          border: none;
+          border-bottom: 1px solid #ccc;
+        }
+
+        button {
+          padding: 8px 10px;
+          border: none;
+          background-color: teal;
+          color: #ffffff;
+          cursor: pointer;
+        }
+        p {
+          color: #ff1744;
+          text-align: center;
+          padding: 0;
+          margin: 0;
+        }
+        span {
+          text-align: center;
+          a {
+            text-decoration: none;
+            color: teal;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}

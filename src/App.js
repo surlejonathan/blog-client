@@ -3,8 +3,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Layout from "./components/Layout";
-import Single from "./pages/Single";
-import Write from "./pages/Write";
+import PostDetails from "./pages/PostDetails";
+import WritePost from "./pages/WritePost";
+import "./styles.scss";
 
 const router = createBrowserRouter([
   {
@@ -17,11 +18,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/:id",
-        element: <Single />,
+        element: <PostDetails />,
       },
       {
         path: "/write",
-        element: <Write />,
+        element: <WritePost />,
       },
     ],
   },
@@ -37,8 +38,10 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <div>
-      <RouterProvider router={router} />
+    <div className='app'>
+      <div className='container'>
+        <RouterProvider router={router} />
+      </div>
     </div>
   );
 };
