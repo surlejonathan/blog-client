@@ -5,11 +5,11 @@ import Navbar from "./Navbar";
 
 const Layout = () => {
   return (
-    <>
+    <div className='layout-container'>
       <Navbar />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 };
 
