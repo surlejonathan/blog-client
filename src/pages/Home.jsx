@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const posts = [
+export const posts = [
   {
     id: 1,
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",

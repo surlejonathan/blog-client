@@ -245,7 +245,14 @@ $tablet: 860px;
       .post-details {
         display: flex;
         gap: 50px;
+        padding-bottom: 40px;
+        @include for-layout-only {
+          padding: 0 16px 40px;
+        }
         .details {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
           flex: 2.5;
           .image {
             img {
@@ -254,12 +261,88 @@ $tablet: 860px;
               object-fit: cover;
             }
           }
+          .author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            .avatar {
+              display: flex;
+              align-items: center;
+              img {
+                width: 60px;
+                border-radius: 50%;
+              }
+            }
+            .information {
+              p {
+                font-weight: bold;
+              }
+              span {
+                font-size: 13px;
+                color: #ccc;
+              }
+            }
+            .actions {
+              display: flex;
+              gap: 10px;
+              .delete {
+                cursor: pointer;
+              }
+            }
+          }
+          .post-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            p {
+              line-height: 30px;
+            }
+          }
         }
         .suggestions {
           flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
           h1 {
             font-size: 20px;
           }
+          .post {
+            .image {
+              width: 100%;
+              img {
+                max-height: 200px;
+                width: 100%;
+                object-fit: cover;
+              }
+            }
+            button {
+              margin-top: 10px;
+              width: max-content;
+              background-color: #fff;
+              cursor: pointer;
+              padding: 8px 16px;
+              border: 1px solid teal;
+              color: teal;
+              &:hover {
+                background-color: $lightGreen;
+                border-color: transparent;
+              }
+            }
+          }
+        }
+      }
+
+      // WRITE POST
+      .edit {
+        padding-bottom: 40px;
+        display: flex;
+        gap: 30px;
+        .content {
+          flex: 5;
+        }
+        .menu {
+          flex: 2;
         }
       }
     }
