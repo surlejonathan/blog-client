@@ -75,23 +75,25 @@ const PostDetails = () => {
       </div>
       <div className='suggestions'>
         <h1>Other posts you may like</h1>
-        {posts
-          .filter(({ id }) => id !== post.id)
-          .map((post) => {
-            return (
-              <div className='post' key={post.id}>
-                <div className='image'>
-                  <img src={post.img} alt='' />
+        <div className='posts'>
+          {posts
+            .filter(({ id }) => id !== post.id)
+            .map((post) => {
+              return (
+                <div className='post' key={post.id}>
+                  <div className='image'>
+                    <img src={post.img} alt='' />
+                  </div>
+                  <div className='content'>
+                    <h2>{post.title}</h2>
+                    <Link to={`/post/${post.id}`} state={{ post }}>
+                      <button>Read more</button>
+                    </Link>
+                  </div>
                 </div>
-                <div className='content'>
-                  <h2>{post.title}</h2>
-                  <Link to={`/post/${post.id}`} state={{ post }}>
-                    <button>Read more</button>
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
       </div>
     </div>
   );

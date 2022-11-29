@@ -7,7 +7,10 @@ const Layout = () => {
   return (
     <div className='layout-container'>
       <Navbar />
-      <Outlet />
+      <div style={{ flex: 1 }}>
+        <Outlet />
+      </div>
+
       <Footer />
     </div>
   );

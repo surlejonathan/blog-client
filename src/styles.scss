@@ -4,15 +4,20 @@ $lightGreen: #b9e7e7;
 
 $layout-width: 1024px;
 $tablet: 860px;
+$mobile: 600px;
 
 @mixin for-layout-only {
   @media (max-width: $layout-width) {
     @content;
   }
 }
-
 @mixin for-tablet-only {
   @media (max-width: $tablet) {
+    @content;
+  }
+}
+@mixin for-mobile-only {
+  @media (max-width: $mobile) {
     @content;
   }
 }
@@ -24,10 +29,14 @@ $tablet: 860px;
 }
 
 .app {
+  height: 100vh;
+
   .app-container {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 
     // LOGIN & REGISTER
     .auth {
@@ -87,6 +96,10 @@ $tablet: 860px;
     .layout-container {
       max-width: $layout-width;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+
       // NAVBAR
       .navbar {
         @include for-layout-only {
@@ -97,6 +110,9 @@ $tablet: 860px;
           justify-content: space-between;
           align-items: center;
           padding: 10px 0;
+          @include for-tablet-only {
+            flex-direction: column;
+          }
           .logo {
             img {
               width: 120px;
@@ -106,7 +122,9 @@ $tablet: 860px;
             display: flex;
             align-items: center;
             gap: 20px;
-
+            @include for-tablet-only {
+              display: none;
+            }
             .nav-link {
               text-transform: uppercase;
               font-weight: 300;
@@ -249,6 +267,9 @@ $tablet: 860px;
         @include for-layout-only {
           padding: 0 16px 40px;
         }
+        @include for-tablet-only {
+          flex-direction: column;
+        }
         .details {
           display: flex;
           flex-direction: column;
@@ -301,32 +322,43 @@ $tablet: 860px;
         }
         .suggestions {
           flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
+
           h1 {
             font-size: 20px;
+            margin-bottom: 10px;
           }
-          .post {
-            .image {
-              width: 100%;
-              img {
-                max-height: 200px;
-                width: 100%;
-                object-fit: cover;
-              }
+          .posts {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            @include for-tablet-only {
+              flex-direction: row;
             }
-            button {
-              margin-top: 10px;
-              width: max-content;
-              background-color: #fff;
-              cursor: pointer;
-              padding: 8px 16px;
-              border: 1px solid teal;
-              color: teal;
-              &:hover {
-                background-color: $lightGreen;
-                border-color: transparent;
+            @include for-mobile-only {
+              flex-direction: column;
+            }
+            .post {
+              .image {
+                width: 100%;
+                img {
+                  max-height: 200px;
+                  width: 100%;
+                  object-fit: cover;
+                }
+              }
+              button {
+                margin-top: 10px;
+                width: max-content;
+                background-color: #fff;
+                cursor: pointer;
+                padding: 8px 16px;
+                border: 1px solid teal;
+                color: teal;
+                &:hover {
+                  background-color: $lightGreen;
+                  border-color: transparent;
+                }
               }
             }
           }
@@ -338,11 +370,98 @@ $tablet: 860px;
         padding-bottom: 40px;
         display: flex;
         gap: 30px;
+        margin: 20px 0;
+        @include for-layout-only {
+          padding: 0 16px;
+        }
+        @include for-tablet-only {
+          flex-direction: column;
+          gap: 0;
+        }
         .content {
           flex: 5;
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 100px;
+          input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+          }
+          .text-editor {
+            height: 250px;
+          }
         }
         .menu {
           flex: 2;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          @include for-tablet-only {
+            flex-direction: row;
+            width: 100%;
+          }
+          .item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            h1 {
+              font-size: 20px;
+            }
+            .image-upload {
+              input {
+                display: none;
+              }
+              label {
+                text-decoration: underline;
+                font-weight: bold;
+                color: teal;
+                cursor: pointer;
+                &:hover {
+                  color: $lightGreen;
+                }
+              }
+            }
+            .actions {
+              display: flex;
+              justify-content: space-between;
+              button {
+                width: max-content;
+                padding: 4px 10px;
+                border: 1px solid teal;
+                cursor: pointer;
+
+                &:nth-child(1) {
+                  color: teal;
+                  background-color: #fff;
+                  &:hover {
+                    background-color: $lightGreen;
+                    border-color: transparent;
+                  }
+                }
+                &:last-child {
+                  color: #fff;
+                  background-color: teal;
+                  &:hover {
+                    background-color: $lightGreen;
+                    color: teal;
+                    border-color: transparent;
+                  }
+                }
+              }
+            }
+
+            .category {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              color: teal;
+            }
+          }
         }
       }
     }
