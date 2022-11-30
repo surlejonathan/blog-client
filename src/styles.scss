@@ -397,6 +397,7 @@ $mobile: 600px;
           display: flex;
           flex-direction: column;
           gap: 20px;
+          flex-wrap: wrap;
           @include for-tablet-only {
             flex-direction: row;
             width: 100%;
