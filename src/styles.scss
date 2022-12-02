@@ -418,7 +418,9 @@ $mobile: 600px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            flex: 1;
+            @include for-tablet-only {
+              flex: 1;
+            }
             h1 {
               font-size: 20px;
             }
