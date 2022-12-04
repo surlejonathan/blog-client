@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
+import moment from "moment";
 //import { posts } from "./Home";
+import { AuthContext } from "../context/authContext";
 
 const recommendedPosts = [];
 
@@ -10,6 +12,8 @@ const PostDetails = () => {
   const [post, setPost] = useState(null);
   const { pathname } = useLocation();
   const postId = pathname.split("/")[2];
+
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -31,33 +35,35 @@ const PostDetails = () => {
           <img src={post?.image} alt='' />
         </div>
         <div className='author'>
-          <div className='avatar'>
-            <img
-              src='https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/02/0251cb6eaa5786c994e6cb7c340f701269ca6f1a_full.jpg'
-              alt=''
-            />
-          </div>
+          {post?.userImage && (
+            <div className='avatar'>
+              <img src={post?.userImage} alt='' />
+            </div>
+          )}
+
           <div className='information'>
             <div className='username'>
-              <p>John</p>
+              <p>{post?.username}</p>
             </div>
             <div className='timestamp'>
-              <span>Posted 2 hours ago</span>
+              <span>Posted {moment(post?.date).fromNow()}</span>
             </div>
           </div>
-          <div className='actions'>
-            <Link to={`/write?id=${post?.id}`}>
-              <FaRegEdit size={18} color='green' />
-            </Link>
-            <FaTrashAlt className='delete' size={18} color='tomato' />
-          </div>
+          {currentUser?.username === post?.username && (
+            <div className='actions'>
+              <Link to={`/write?id=${post?.id}`}>
+                <FaRegEdit size={18} color='green' />
+              </Link>
+              <FaTrashAlt className='delete' size={18} color='tomato' />
+            </div>
+          )}
         </div>
         <div className='post-content'>
           <h1>{post?.title}</h1>
           <p>
             [<b>Updated</b>]
           </p>
-          <p>{post?.description}</p>
+          {post?.description}
         </div>
       </div>
       <div className='suggestions'>
