@@ -1,7 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
-export const posts = [
+/* export const posts = [
   {
     id: 1,
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
@@ -26,9 +27,24 @@ export const posts = [
     desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
     img: "https://images.pexels.com/photos/6157049/pexels-photo-6157049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
-];
+]; */
 
 const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const category = useLocation().search;
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await axios.get(`/posts${category}`);
+        setPosts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPosts();
+  }, [category]);
+
   return (
     <div className='home'>
       <div className='posts'>
@@ -36,11 +52,11 @@ const Home = () => {
           return (
             <div className='post' key={post.id}>
               <div className='image'>
-                <img src={post.img} alt='' />
+                <img src={post.image} alt='' />
               </div>
               <div className='content'>
                 <h1>{post.title}</h1>
-                <p>{post.desc}</p>
+                <p>{post.description}</p>
                 <Link to={`/post/${post.id}`} state={{ post }}>
                   <button>Read more</button>
                 </Link>

@@ -15,13 +15,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='links'>
-          <Link to='/' className='nav-link'>
+          <Link to='/?category=design' className='nav-link'>
             Design
           </Link>
-          <Link to='/' className='nav-link'>
+          <Link to='/?category=tech' className='nav-link'>
             Tech
           </Link>
-          <Link to='/' className='nav-link'>
+          <Link to='/?category=news' className='nav-link'>
             News
           </Link>
           {currentUser ? (

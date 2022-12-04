@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
-import { posts } from "./Home";
+import axios from "axios";
+//import { posts } from "./Home";
+
+const recommendedPosts = [];
 
 const PostDetails = () => {
-  const {
-    state: { post },
-  } = useLocation();
+  const [post, setPost] = useState(null);
+  const { pathname } = useLocation();
+  const postId = pathname.split("/")[2];
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await axios.get(`/posts/${postId}`);
+        console.log("RES", res);
+        setPost(res.data[0]);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchPost();
+  }, [postId]);
 
   return (
     <div className='post-details'>
       <div className='details'>
         <div className='image'>
-          <img src={post.img} alt='' />
+          <img src={post?.image} alt='' />
         </div>
         <div className='author'>
           <div className='avatar'>
@@ -30,63 +46,34 @@ const PostDetails = () => {
             </div>
           </div>
           <div className='actions'>
-            <Link to={`/write?id=${post.id}`}>
+            <Link to={`/write?id=${post?.id}`}>
               <FaRegEdit size={18} color='green' />
             </Link>
             <FaTrashAlt className='delete' size={18} color='tomato' />
           </div>
         </div>
         <div className='post-content'>
-          <h1>{post.title}</h1>
+          <h1>{post?.title}</h1>
           <p>
             [<b>Updated</b>]
           </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-            fuga totam accusantium! Pariatur at, voluptatibus reprehenderit
-            atque ad quam dolor possimus odio, hic cumque officia fugiat
-            quisquam vel? Minus, hic.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-            fuga totam accusantium! Pariatur at, voluptatibus reprehenderit
-            atque ad quam dolor possimus odio, hic cumque officia fugiat
-            quisquam vel? Minus, hic.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-            fuga totam accusantium! Pariatur at, voluptatibus reprehenderit
-            atque ad quam dolor possimus odio, hic cumque officia fugiat
-            quisquam vel? Minus, hic.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-            fuga totam accusantium! Pariatur at, voluptatibus reprehenderit
-            atque ad quam dolor possimus odio, hic cumque officia fugiat
-            quisquam vel? Minus, hic.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-            fuga totam accusantium! Pariatur at, voluptatibus reprehenderit
-            atque ad quam dolor possimus odio, hic cumque officia fugiat
-            quisquam vel? Minus, hic.
-          </p>
+          <p>{post?.description}</p>
         </div>
       </div>
       <div className='suggestions'>
         <h1>Other posts you may like</h1>
         <div className='posts'>
-          {posts
-            .filter(({ id }) => id !== post.id)
-            .map((post) => {
+          {recommendedPosts
+            ?.filter(({ id }) => id !== post?.id)
+            ?.map((post) => {
               return (
-                <div className='post' key={post.id}>
+                <div className='post' key={post?.id}>
                   <div className='image'>
-                    <img src={post.img} alt='' />
+                    <img src={post?.image} alt='' />
                   </div>
                   <div className='content'>
-                    <h2>{post.title}</h2>
-                    <Link to={`/post/${post.id}`} state={{ post }}>
+                    <h2>{post?.title}</h2>
+                    <Link to={`/post/${post?.id}`} state={{ post }}>
                       <button>Read more</button>
                     </Link>
                   </div>
