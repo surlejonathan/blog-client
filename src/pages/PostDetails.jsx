@@ -19,14 +19,21 @@ const PostDetails = () => {
     const fetchPost = async () => {
       try {
         const res = await axios.get(`/posts/${postId}`);
-        console.log("RES", res);
-        setPost(res.data[0]);
+        setPost(res.data);
       } catch (error) {
         console.log("error", error);
       }
     };
     fetchPost();
   }, [postId]);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${postId}`);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   return (
     <div className='post-details'>
@@ -54,7 +61,12 @@ const PostDetails = () => {
               <Link to={`/write?id=${post?.id}`}>
                 <FaRegEdit size={18} color='green' />
               </Link>
-              <FaTrashAlt className='delete' size={18} color='tomato' />
+              <FaTrashAlt
+                className='delete'
+                size={18}
+                color='tomato'
+                onClick={handleDelete}
+              />
             </div>
           )}
         </div>
