@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import moment from "moment";
-//import { posts } from "./Home";
 import { AuthContext } from "../context/authContext";
-
-const recommendedPosts = [];
+import Suggestions from "../components/Suggestions";
 
 const PostDetails = () => {
   const [post, setPost] = useState(null);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const postId = pathname.split("/")[2];
 
   const { currentUser } = useContext(AuthContext);
@@ -30,16 +29,28 @@ const PostDetails = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`/posts/${postId}`);
+      navigate("/");
     } catch (error) {
       console.log("error", error);
     }
   };
-
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+  console.log("POST", post);
   return (
     <div className='post-details'>
       <div className='details'>
         <div className='image'>
-          <img src={post?.image} alt='' />
+          <img
+            src={
+              post?.image.startsWith("https" || "http")
+                ? post?.image
+                : `../uploads/${post?.image}`
+            }
+            alt=''
+          />
         </div>
         <div className='author'>
           {post?.userImage && (
@@ -58,7 +69,7 @@ const PostDetails = () => {
           </div>
           {currentUser?.username === post?.username && (
             <div className='actions'>
-              <Link to={`/write?id=${post?.id}`}>
+              <Link to={`/write?edit=${post?.id}`} state={post}>
                 <FaRegEdit size={18} color='green' />
               </Link>
               <FaTrashAlt
@@ -72,34 +83,16 @@ const PostDetails = () => {
         </div>
         <div className='post-content'>
           <h1>{post?.title}</h1>
-          <p>
-            [<b>Updated</b>]
-          </p>
-          {post?.description}
+          {post?.updatedAt && (
+            <p>
+              [<b>Updated {moment(post?.updatedAt).fromNow()}</b>]
+            </p>
+          )}
+
+          {getText(post?.description)}
         </div>
       </div>
-      <div className='suggestions'>
-        <h1>Other posts you may like</h1>
-        <div className='posts'>
-          {recommendedPosts
-            ?.filter(({ id }) => id !== post?.id)
-            ?.map((post) => {
-              return (
-                <div className='post' key={post?.id}>
-                  <div className='image'>
-                    <img src={post?.image} alt='' />
-                  </div>
-                  <div className='content'>
-                    <h2>{post?.title}</h2>
-                    <Link to={`/post/${post?.id}`} state={{ post }}>
-                      <button>Read more</button>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-      </div>
+      <Suggestions category={post?.category} currentPostId={post?.id} />
     </div>
   );
 };
