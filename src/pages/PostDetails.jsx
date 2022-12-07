@@ -5,6 +5,7 @@ import axios from "axios";
 import moment from "moment";
 import { AuthContext } from "../context/authContext";
 import Suggestions from "../components/Suggestions";
+import { getText } from "../utils/htmlParser";
 
 const PostDetails = () => {
   const [post, setPost] = useState(null);
@@ -34,11 +35,7 @@ const PostDetails = () => {
       console.log("error", error);
     }
   };
-  const getText = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
-  };
-  console.log("POST", post);
+
   return (
     <div className='post-details'>
       <div className='details'>
@@ -88,7 +85,6 @@ const PostDetails = () => {
               [<b>Updated {moment(post?.updatedAt).fromNow()}</b>]
             </p>
           )}
-
           {getText(post?.description)}
         </div>
       </div>

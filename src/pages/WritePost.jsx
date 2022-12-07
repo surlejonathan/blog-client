@@ -51,10 +51,6 @@ const WritePost = () => {
     }
   };
 
-  console.log("TITLE", title);
-  console.log("DESC", value);
-  console.log("IMAGE", state?.image);
-  console.log("CAT", category);
   return (
     <div className='edit'>
       <div className='content'>

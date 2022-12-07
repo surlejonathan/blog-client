@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { getText } from "../utils/htmlParser";
 
 /* export const posts = [
   {
@@ -45,16 +46,10 @@ const Home = () => {
     fetchPosts();
   }, [category]);
 
-  const getText = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
-  };
-
   return (
     <div className='home'>
       <div className='posts'>
         {posts.map((post) => {
-          console.log(post.image);
           return (
             <div className='post' key={post.id}>
               <div className='image'>
@@ -69,7 +64,7 @@ const Home = () => {
               </div>
               <div className='content'>
                 <h1>{post.title}</h1>
-                <p>{getText(post.description)}</p>
+                {getText(post.description)}
                 <Link to={`/post/${post.id}`} state={{ post }}>
                   <button>Read more</button>
                 </Link>
