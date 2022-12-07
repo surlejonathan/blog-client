@@ -46,6 +46,10 @@ const Home = () => {
     fetchPosts();
   }, [category]);
 
+  const truncate = (string) => {
+    return string.length > 100 ? string.substring(0, 200) + "..." : string;
+  };
+
   return (
     <div className='home'>
       <div className='posts'>
@@ -64,7 +68,7 @@ const Home = () => {
               </div>
               <div className='content'>
                 <h1>{post.title}</h1>
-                {getText(post.description)}
+                {getText(truncate(post.description))}
                 <Link to={`/post/${post.id}`} state={{ post }}>
                   <button>Read more</button>
                 </Link>
