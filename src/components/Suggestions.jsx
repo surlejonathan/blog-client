@@ -16,6 +16,7 @@ const Suggestions = ({ category, currentPostId }) => {
     };
     fetchPosts();
   }, [category]);
+
   return (
     <div className='suggestions'>
       <h1>Other posts you may like</h1>
@@ -28,7 +29,7 @@ const Suggestions = ({ category, currentPostId }) => {
                 <div className='image'>
                   <img
                     src={
-                      post?.image.startsWith("https" || "http")
+                      post?.image?.startsWith("https")
                         ? post?.image
                         : `../uploads/${post?.image}`
                     }

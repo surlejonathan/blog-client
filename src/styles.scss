@@ -35,7 +35,7 @@ $mobile: 600px;
 
 .app {
   height: 100vh;
-
+  position: relative;
   .app-container {
     display: flex;
     flex-direction: column;
@@ -493,6 +493,64 @@ $mobile: 600px;
               align-items: center;
               gap: 4px;
               color: teal;
+            }
+          }
+        }
+      }
+    }
+    //MODAL
+    .modal-background {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .modal-container {
+        max-width: 360px;
+        padding: 36px;
+        width: 100%;
+        background-color: #fff;
+        margin: 0 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .modal-header {
+          font-size: 24px;
+        }
+
+        .modal-body {
+          flex: 1;
+        }
+
+        .modal-cta {
+          display: flex;
+          gap: 20px;
+          justify-content: flex-end;
+          button {
+            border: 1px solid teal;
+            cursor: pointer;
+            width: max-content;
+            padding: 4px 10px;
+            &:nth-child(1) {
+              color: teal;
+              background-color: #fff;
+              &:hover {
+                background-color: $lightGreen;
+                border-color: transparent;
+              }
+            }
+            &:last-child {
+              color: #fff;
+              background-color: teal;
+              &:hover {
+                background-color: $lightGreen;
+                color: teal;
+                border-color: transparent;
+              }
             }
           }
         }

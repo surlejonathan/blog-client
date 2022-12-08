@@ -59,9 +59,9 @@ const Home = () => {
               <div className='image'>
                 <img
                   src={
-                    post?.image.startsWith("https" || "http")
+                    post?.image.startsWith("https")
                       ? post.image
-                      : `../uploads/${post.image}`
+                      : `../uploads/${post?.image}`
                   }
                   alt=''
                 />

@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import Modal from "./components/Modal";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -41,6 +42,7 @@ const App = () => {
     <div className='app'>
       <div className='app-container'>
         <RouterProvider router={router} />
+        <Modal />
       </div>
     </div>
   );

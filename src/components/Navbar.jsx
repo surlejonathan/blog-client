@@ -1,11 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { AuthContext } from "../context/authContext";
+import { ModalContext } from "../context/modalContext";
 
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
   const { username } = currentUser || {};
+  const { toggle, setModal, setIsOpen } = useContext(ModalContext);
+
+  const openModal = () => {
+    toggle();
+    setModal({
+      title: "Logout",
+      content: "Do you really want to log out ?",
+      actionLabel: "Log out",
+      action: () => {
+        logout();
+        setIsOpen(false);
+      },
+    });
+  };
   return (
     <div className='navbar'>
       <div className='container'>
@@ -30,7 +45,7 @@ const Navbar = () => {
             {currentUser ? (
               <>
                 <span>{username}</span>
-                <span onClick={logout}>Logout</span>
+                <span onClick={openModal}>Logout</span>
               </>
             ) : (
               <Link to='/login' className='nav-link'>

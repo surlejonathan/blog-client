@@ -6,6 +6,7 @@ import moment from "moment";
 import { AuthContext } from "../context/authContext";
 import Suggestions from "../components/Suggestions";
 import { getText } from "../utils/htmlParser";
+import { ModalContext } from "../context/modalContext";
 
 const PostDetails = () => {
   const [post, setPost] = useState(null);
@@ -14,6 +15,7 @@ const PostDetails = () => {
   const postId = pathname.split("/")[2];
 
   const { currentUser } = useContext(AuthContext);
+  const { toggle, setModal, setIsOpen } = useContext(ModalContext);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -30,10 +32,23 @@ const PostDetails = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`/posts/${postId}`);
+      setIsOpen(false);
       navigate("/");
     } catch (error) {
       console.log("error", error);
     }
+  };
+
+  const openModal = () => {
+    toggle();
+    setModal({
+      title: "Delete post",
+      content: "Do you really want to delete this post ?",
+      actionLabel: "Delete",
+      action: () => {
+        handleDelete();
+      },
+    });
   };
 
   return (
@@ -42,7 +57,7 @@ const PostDetails = () => {
         <div className='image'>
           <img
             src={
-              post?.image.startsWith("https" || "http")
+              post?.image && post?.image?.startsWith("https")
                 ? post?.image
                 : `../uploads/${post?.image}`
             }
@@ -73,7 +88,7 @@ const PostDetails = () => {
                 className='delete'
                 size={18}
                 color='tomato'
-                onClick={handleDelete}
+                onClick={openModal}
               />
             </div>
           )}
