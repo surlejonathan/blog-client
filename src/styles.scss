@@ -110,6 +110,7 @@ $mobile: 600px;
 
       // NAVBAR
       .navbar {
+        margin-bottom: 40px;
         @include for-layout-only {
           padding: 0 16px;
         }
@@ -182,6 +183,7 @@ $mobile: 600px;
       .footer {
         background-color: $lightGreen;
         padding: 16px;
+        margin-top: 60px;
         .container {
           display: flex;
           justify-content: center;
@@ -204,10 +206,9 @@ $mobile: 600px;
           padding: 0 16px;
         }
         .posts {
-          margin-top: 50px;
           display: flex;
           flex-direction: column;
-          gap: 150px;
+          gap: 100px;
 
           .post {
             display: flex;
