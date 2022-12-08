@@ -15,28 +15,32 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='links'>
-          <Link to='/?category=design' className='nav-link'>
-            Design
-          </Link>
-          <Link to='/?category=tech' className='nav-link'>
-            Tech
-          </Link>
-          <Link to='/?category=news' className='nav-link'>
-            News
-          </Link>
-          {currentUser ? (
-            <>
-              <span>{username}</span>
-              <span onClick={logout}>Logout</span>
-            </>
-          ) : (
-            <Link to='/login' className='nav-link'>
-              Login
+          <div className='link-items'>
+            <Link to='/?category=design' className='nav-link'>
+              Design
             </Link>
-          )}
-          <Link className='write' to='/write'>
-            Write
-          </Link>
+            <Link to='/?category=tech' className='nav-link'>
+              Tech
+            </Link>
+            <Link to='/?category=news' className='nav-link'>
+              News
+            </Link>
+          </div>
+          <div className='user-links'>
+            {currentUser ? (
+              <>
+                <span>{username}</span>
+                <span onClick={logout}>Logout</span>
+              </>
+            ) : (
+              <Link to='/login' className='nav-link'>
+                Login
+              </Link>
+            )}
+            <Link className='write' to='/write'>
+              Write
+            </Link>
+          </div>
         </div>
       </div>
     </div>
