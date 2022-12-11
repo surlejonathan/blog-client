@@ -20,7 +20,9 @@ const PostDetails = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`/posts/${postId}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/posts/${postId}`
+        );
         setPost(res.data);
       } catch (error) {
         console.log("error", error);
@@ -31,7 +33,7 @@ const PostDetails = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${postId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/posts/${postId}`);
       setIsOpen(false);
       navigate("/");
     } catch (error) {

@@ -37,7 +37,12 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get(`/posts${category}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/posts${category}`,
+          {
+            headers: { "Access-Control-Allow-Origin": "*" },
+          }
+        );
         setPosts(res.data);
       } catch (error) {
         console.log(error);

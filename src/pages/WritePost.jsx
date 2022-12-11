@@ -17,7 +17,10 @@ const WritePost = () => {
       if (uploadedImage) {
         const formData = new FormData();
         formData.append("uploadedImage", uploadedImage);
-        const res = await axios.post("/upload", formData);
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}/upload`,
+          formData
+        );
         return res.data;
       }
     } catch (error) {
@@ -32,13 +35,16 @@ const WritePost = () => {
     try {
       if (title && value) {
         state
-          ? await axios.put(`/posts/${state.id}`, {
-              title,
-              description: value,
-              image: state.image ? state.image : image,
-              category,
-            })
-          : await axios.post("/posts", {
+          ? await axios.put(
+              `${process.env.REACT_APP_API_URL}/posts/${state.id}`,
+              {
+                title,
+                description: value,
+                image: state.image ? state.image : image,
+                category,
+              }
+            )
+          : await axios.post(`${process.env.REACT_APP_API_URL}/posts`, {
               title,
               description: value,
               image,

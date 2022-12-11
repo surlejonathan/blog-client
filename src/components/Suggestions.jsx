@@ -8,7 +8,9 @@ const Suggestions = ({ category, currentPostId }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get(`/posts?category=${category}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/posts?category=${category}`
+        );
         setRecommendedPosts(res.data);
       } catch (error) {
         console.log(error);

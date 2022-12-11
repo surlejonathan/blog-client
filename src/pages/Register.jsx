@@ -20,7 +20,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/auth/register`, inputValues);
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/register`,
+        inputValues
+      );
       setSuccess("Your account has been successfully created");
       setError(false);
     } catch (error) {
