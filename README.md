@@ -1,3 +1,5 @@
-## Demo of the app:
+## Blog - React / Express / MySQL
 
-[Demo]("https://blog-client-4a5sabes3-surlejonathan.vercel.app/")
+### Frontend and backend hosted @ Vercel / DB exposed with Railway
+
+[Demo here](https://blog-client-4a5sabes3-surlejonathan.vercel.app/)
