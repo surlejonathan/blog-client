@@ -67,12 +67,9 @@ const PostDetails = () => {
           />
         </div>
         <div className='author'>
-          {post?.userImage && (
-            <div className='avatar'>
-              <img src={post?.userImage} alt='' />
-            </div>
-          )}
-
+          <div className='avatar'>
+            {post?.userImage && <img src={post.userImage} alt='' />}
+          </div>
           <div className='information'>
             <div className='username'>
               <p>{post?.username}</p>

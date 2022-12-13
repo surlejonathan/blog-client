@@ -310,9 +310,15 @@ $mobile: 600px;
             .avatar {
               display: flex;
               align-items: center;
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              background-color: #ccc;
               img {
                 width: 60px;
+                height: 60px;
                 border-radius: 50%;
+                object-fit: cover;
               }
             }
             .information {
