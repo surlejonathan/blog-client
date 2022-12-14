@@ -9,6 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(user);
 
   const login = async (payload) => {
+    console.log("URL", `${process.env.REACT_APP_API_URL}/auth/login`);
     const { data } = await axios.post(
       `${process.env.REACT_APP_API_URL}/auth/login`,
       payload,
