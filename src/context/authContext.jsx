@@ -16,6 +16,7 @@ export const AuthContextProvider = ({ children }) => {
       {
         headers: {
           "Access-Control-Allow-Origin": process.env.REACT_APP_CLIENT_BASE_URL,
+          "x-forwarded-proto": "https",
         },
         withCredentials: true,
       }
