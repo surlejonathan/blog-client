@@ -33,7 +33,12 @@ const PostDetails = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/posts/${postId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/posts/${postId}`, {
+        headers: {
+          "Access-Control-Allow-Origin": process.env.REACT_APP_CLIENT_BASE_URL,
+        },
+        withCredentials: true,
+      });
       setIsOpen(false);
       navigate("/");
     } catch (error) {

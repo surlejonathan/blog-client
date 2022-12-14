@@ -38,10 +38,7 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/posts${category}`,
-          {
-            headers: { "Access-Control-Allow-Origin": "*" },
-          }
+          `${process.env.REACT_APP_API_URL}/posts${category}`
         );
         setPosts(res.data);
       } catch (error) {

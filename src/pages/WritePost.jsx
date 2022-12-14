@@ -19,7 +19,11 @@ const WritePost = () => {
         formData.append("uploadedImage", uploadedImage);
         const res = await axios.post(
           `${process.env.REACT_APP_API_URL}/upload`,
-          formData
+          formData,
+          {
+            headers: { "Access-Control-Allow-Origin": "http://localhost:3000" },
+            withCredentials: true,
+          }
         );
         return res.data;
       }
@@ -42,14 +46,31 @@ const WritePost = () => {
                 description: value,
                 image: state.image ? state.image : image,
                 category,
+              },
+              {
+                headers: {
+                  "Access-Control-Allow-Origin":
+                    process.env.REACT_APP_CLIENT_BASE_URL,
+                },
+                withCredentials: true,
               }
             )
-          : await axios.post(`${process.env.REACT_APP_API_URL}/posts`, {
-              title,
-              description: value,
-              image,
-              category,
-            });
+          : await axios.post(
+              `${process.env.REACT_APP_API_URL}/posts`,
+              {
+                title,
+                description: value,
+                image,
+                category,
+              },
+              {
+                headers: {
+                  "Access-Control-Allow-Origin":
+                    process.env.REACT_APP_CLIENT_BASE_URL,
+                },
+                withCredentials: true,
+              }
+            );
         navigate("/");
       }
     } catch (error) {

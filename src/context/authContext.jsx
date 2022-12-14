@@ -11,13 +11,24 @@ export const AuthContextProvider = ({ children }) => {
   const login = async (payload) => {
     const { data } = await axios.post(
       `${process.env.REACT_APP_API_URL}/auth/login`,
-      payload
+      payload,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": process.env.REACT_APP_CLIENT_BASE_URL,
+        },
+        withCredentials: true,
+      }
     );
     setCurrentUser(data);
   };
 
   const logout = async () => {
-    await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`);
+    await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`, {
+      headers: {
+        "Access-Control-Allow-Origin": process.env.REACT_APP_CLIENT_BASE_URL,
+      },
+      withCredentials: true,
+    });
     setCurrentUser(null);
   };
 
